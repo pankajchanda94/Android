@@ -1,5 +1,6 @@
 package com.example.pcchanda.myapplication;
 
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
@@ -88,11 +89,13 @@ public class MainActivity extends AppCompatActivity {
         //test change comment
     }
 
+
+
     private  OnClickListener listner = new OnClickListener() {
         @Override
         public void onClick(View v) {
 
-
+            textBox.setMovementMethod(new ScrollingMovementMethod());
            if(equalFlag)
            {
                textBox.setText("");
@@ -147,6 +150,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.equal:
                try {
+
+                   if(textBox.getText().toString().equals("142+1"))
+                   {
+                       shomylove sholove = new shomylove();
+                       sholove.showlove(getBaseContext());
+                   }
                    /*DecimalFormat dc = new DecimalFormat();
                    dc.setMaximumFractionDigits(5);*/
                    textBox.setTextSize(40);
@@ -154,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 //   Log.d("adsfa",dc.format(calcu.Calculate(textBox.getText().toString()).toString()));
                   Log.d("dfsd","asdfasdf");
                    textBox.setText(calcu.Calculate(textBox.getText().toString()));
-                   textBox.setMovementMethod(new ScrollingMovementMethod());
+
 
                }
                catch (Exception e){
