@@ -1,5 +1,6 @@
 package com.example.pcchanda.myapplication;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,8 +19,17 @@ public class appendTextToTextView {
 
     }
 
-    public void depend(String s,TextView v)
+    public void depend(TextView v)
     {
 
+        if(v.getText().length()>0)
+        {
+
+            String s = v.getText().toString();
+            v.setText("");
+            v.append(s.substring(0, s.length() - 1));
+
+
+        }
     }
 }

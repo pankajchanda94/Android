@@ -1,30 +1,43 @@
 package com.example.pcchanda.myapplication;
 
+import android.icu.text.DecimalFormat;
 import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
+import com.example.pcchanda.Calculator.*;
+
 
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     TextView textBox;
+
+
+    Calculator calcu ;
+    Boolean equalFlag = false;
 
     Double result = 0.0;
     appendTextToTextView textbox ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         textBox = (TextView)findViewById(R.id.textBox);
+
+
         textbox = new appendTextToTextView();
+        calcu = new Calculator();
 
         Button one = (Button)findViewById(R.id.one);
         one.setOnClickListener(listner);
@@ -47,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         Button  zero = (Button)findViewById(R.id.zero);
         zero.setOnClickListener(listner);
 
-
+        Button del = (Button)findViewById(R.id.del);
+        del.setOnClickListener(listner);
         Button devide  = (Button)findViewById(R.id.devide);
         devide.setOnClickListener(listner);
         Button  multiply = (Button)findViewById(R.id.multiply);
@@ -58,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
         plus.setOnClickListener(listner);
         Button equal  = (Button)findViewById(R.id.equal);
         equal.setOnClickListener(listner);
+        Button dot = (Button)findViewById(R.id.dot);
+        dot.setOnClickListener(listner);
+        Button clear = (Button)findViewById(R.id.clear);
+        clear.setOnClickListener(listner);
+
+        Button bracketOpen = (Button)findViewById(R.id.BracketOpen);
+        bracketOpen.setOnClickListener(listner);
+        Button bracketClose = (Button)findViewById(R.id.BracketClose);
+        bracketClose.setOnClickListener(listner);
+
 
        //textBox = (TextView) findViewById(R.id.textbox);
 
@@ -67,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
     private  OnClickListener listner = new OnClickListener() {
         @Override
         public void onClick(View v) {
+
+
+           if(equalFlag)
+           {
+               textBox.setText("");
+               equalFlag = false;
+               textBox.setTextSize(80);
+           }
 
 
         switch (v.getId())
@@ -114,19 +146,38 @@ public class MainActivity extends AppCompatActivity {
                 textbox.append("+",textBox);
                 break;
             case R.id.equal:
+               try {
+                   /*DecimalFormat dc = new DecimalFormat();
+                   dc.setMaximumFractionDigits(5);*/
+                   textBox.setTextSize(40);
+                   equalFlag = true;
+                //   Log.d("adsfa",dc.format(calcu.Calculate(textBox.getText().toString()).toString()));
+                  Log.d("dfsd","asdfasdf");
+                   textBox.setText(calcu.Calculate(textBox.getText().toString()));
+                   textBox.setMovementMethod(new ScrollingMovementMethod());
 
-
+               }
+               catch (Exception e){
+                   Log.d("stack trace",e.toString());
+                textBox.setText("Dude enter properly");
+            }
+                //textBox.setText();
                 break;
             case R.id.del:
-
-
+                textbox.depend(textBox);
                 break;
             case R.id.dot:
                 textbox.append(".",textBox);
-
                 break;
-
-
+            case R.id.clear:
+                textBox.setText("");
+                break;
+            case R.id.BracketClose:
+                textBox.append(")");
+                break;
+            case R.id.BracketOpen:
+                textBox.append("(");
+                break;
 
         }
 
