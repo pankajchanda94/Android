@@ -1,17 +1,13 @@
 package com.example.pcchanda.myapplication;
 
-import android.content.Intent;
-import android.icu.text.DecimalFormat;
-import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.view.View.OnClickListener;
 import com.example.pcchanda.Calculator.*;
 
@@ -22,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     TextView textBox;
-
+    boolean equalFlag = false;
 
     Calculator calcu ;
-    Boolean equalFlag = false;
+    Boolean errorFlag = false;
 
     Double result = 0.0;
     appendTextToTextView textbox ;
@@ -96,12 +92,20 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
 
             textBox.setMovementMethod(new ScrollingMovementMethod());
-           if(equalFlag)
-           {
-               textBox.setText("");
-               equalFlag = false;
-               textBox.setTextSize(80);
-           }
+               textBox.setTextSize(70);
+
+
+            if(equalFlag)
+            {
+
+                equalFlag = false;
+            }
+
+if(errorFlag )
+{
+    textBox.setText("");
+    errorFlag = false;
+}
 
 
         switch (v.getId())
@@ -150,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.equal:
                try {
-
+                    equalFlag= true;
                    if(textBox.getText().toString().equals("142+1"))
                    {
                        shomylove sholove = new shomylove();
@@ -159,15 +163,17 @@ public class MainActivity extends AppCompatActivity {
                    /*DecimalFormat dc = new DecimalFormat();
                    dc.setMaximumFractionDigits(5);*/
                    textBox.setTextSize(40);
-                   equalFlag = true;
+
                 //   Log.d("adsfa",dc.format(calcu.Calculate(textBox.getText().toString()).toString()));
                   Log.d("dfsd","asdfasdf");
+
                    textBox.setText(calcu.Calculate(textBox.getText().toString()));
 
 
                }
                catch (Exception e){
                    Log.d("stack trace",e.toString());
+                   errorFlag= true;
                 textBox.setText("Dude enter properly");
             }
                 //textBox.setText();

@@ -30,7 +30,7 @@ public class calculate_postfix {
             } else if (post_to_infix.isOprator(arrlist.get(i))) {
 
                 b = (double) result.pop();
-                if(!result.isEmpty())//top
+
                 a = (double) result.pop();
                 result.push(calculate_postfix.math(a, b, arrlist.get(i)));
 
